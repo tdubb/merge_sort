@@ -1,25 +1,67 @@
-@array = [55, 3, 40, 45, 23, 12, 28, 90, 7, 27]
-@merge_array = []
+#step 1 break down the array into individual arrays, base case is an array of length=1
+#step 2 once you have 2 arrays to merge then compare the first element of each array and put the least of the 2 into a new answer array
+	#a while both arrays contain elements compare them
+	#b if one of the arrays is empty and the other isn't then add the remaining array to the end of the answer array
 
-def sort(arr)
-	if arr.length != 2
-		new_array = arr.each_slice(arr.length/2).to_a
-		@arr_a = new_array[0].sort!
-		@arr_b = new_array[1].sort!
+# ary = [1,3,2,9,4,55,22,2,4,7]
+#
+# def merge_sort(ary)
+# 	if ary.length == 1
+# 		return ary
+# 	else
+# 		ary1 = ary.shift(ary.length/2)
+# 		ary2 = ary
+# 		ary1 = merge_sort(ary1)
+# 		ary2 = merge_sort(ary2)
+# 		p ary1
+# 		p ary2
+# 	end
+# end
+#
+# merge_sort(ary)
+
+ary = [1,3,2,9,4,55,22,2,4,7]
+
+def merge_sort(ary)
+	if ary.length == 1
+		return ary
+	else
+		ary1 = ary.shift(ary.length/2)
+		ary2 = ary
+		ary1 = merge_sort(ary1)
+		ary2 = merge_sort(ary2)
+		ary = merge(ary1,ary2)
+		# p ary1
+		# p ary2
+		# p answer
 	end
+	ary
 end
 
-def merge(arg, arg1)
-	if  @merge_array.length == @array.length
-		puts "#{merge_array}"
-	elsif arg[x] < arg1[y]
-		@merge_array.push(arg[x])
-		merge(arr_a, arr_b)
-	else arg[x] > arg1[y]
-		@merge_array.push(arg1[y])
-		merge(arr_a, arr_b)
+def merge(ary1, ary2)
+	answer = []
+	while ary1.any? && ary2.any? do
+		# p 'inside while'
+		if ary1[0] <= ary2[0]
+			# p 'inside a'
+			# p ary1
+			answer.push(ary1.shift)
+			# p answer
+		else
+			# p 'inside b'
+			answer.push(ary2.shift)
+			# p answer
+		end
 	end
+	if ary1.any?
+		answer.push(ary1)
+		answer.flatten!
+	end
+	if ary2.any?
+		answer.push(ary2)
+		answer.flatten!
+	end
+  p answer
 end
 
-sort(@array)
-(@array.length).times { |x, y| merge(@arr_a, @arr_b) }
+merge_sort(ary)
