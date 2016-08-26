@@ -1,0 +1,7 @@
+command d = highlights matching text
+vim ~/.bash_profile
+i = insert
+esc to exit from insert mode
+:wq to quit and save
+:q to just quit
+source -file_name reloads terminal that file in your path
